@@ -1,4 +1,18 @@
-# Mks-Robin-Nano-Marlin2.0-Firmware
+# About this Fork
+This fork is a Marlin version, based on the original branch of MKS (board manufacturer), and was created to bring Marlin 2.0 with the easy configurability of Marlin implementation from l3tspeak to TwoTrees printers like the Sapphire Plus an Pro.
+
+## Preconfigured printers:
+- Sapphire Pro
+- Sapphire Plus
+- Bluer
+- Sapphire Pro/Plus with E3D Hemera
+
+As I own a Sapphire Plus with Hemera, this will be the only tested version.
+
+# Some other Recommendation
+I'm using the Cura for slicing with the Voron 300 as base-profile. Some configurations had been made.
+
+# Mks-Robin-Nano-Marlin2.0-Firmware (Description of original project...)
 ## Features
 The firmware of Mks Robin Nano, based on [Marlin2.0.x](https://github.com/MarlinFirmware/Marlin)(The based version is based on Marlin2.0.5), added the [LittlevGL](https://github.com/littlevgl/lvgl), supporting colourful GUI and touch screen. It is developed on PlatformIO, we hope more and more developers will participate the development of this repository.
 
