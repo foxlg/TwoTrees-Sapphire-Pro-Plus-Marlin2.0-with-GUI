@@ -23,7 +23,7 @@
  */
 #pragma once
 
-/**
+/**LCD12864mks
  * Configuration.h
  *
  * Basic settings such as:
@@ -375,7 +375,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V2
+  #define MOTHERBOARD BOARD_MKS_ROBIN_NANO
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
@@ -2577,7 +2577,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 // If you have a speaker that can produce tones, enable it here.
 // By default Marlin assumes you have a buzzer with a fixed frequency.
 //
-//#define SPEAKER
+#define SPEAKER
 
 //
 // The duration and frequency for the UI feedback sound.
@@ -2993,8 +2993,8 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 // Just copy the 'assets' folder from the build directory to the
 // root of your SD card, together with the compiled firmware.
 //
-//#define TFT_LVGL_UI_FSMC  // Robin nano v1.2 uses FSMC
-#define TFT_LVGL_UI_SPI   // Robin nano v2.0 uses SPI
+#define TFT_LVGL_UI_FSMC  // Robin nano v1.2 uses FSMC
+//#define TFT_LVGL_UI_SPI   // Robin nano v2.0 uses SPI
 
 //=============================================================================
 //============================  Other Controllers  ============================
