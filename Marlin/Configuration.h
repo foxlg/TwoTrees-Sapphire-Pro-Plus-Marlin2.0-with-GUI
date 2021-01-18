@@ -61,7 +61,7 @@
 // Core XY
 //#define SAPPHIRE_PRO
 //#define SAPPHIRE_PLUS
-//#define SAPPHIRE_PLUS_DUAL_Z //==> Read text since additional config is mandatory
+#define SAPPHIRE_PLUS_DUAL_Z //==> Read text since additional config is mandatory
 /****************************************************************************
 Attention: On newer Sapphire Plus models (Probably manufactured after April 2020)
 the Z-Axis drives and endstopps have been changed to dual Z-Endstopps and
@@ -78,7 +78,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 //===========================================================================
 //============================= Hotend-Preset================================
 //===========================================================================
-//#define E3D_HEMERA //Only for Sapphire PLUS yet.
+#define E3D_HEMERA //Only for Sapphire PLUS yet.
 
 //Modifies Thermistor Types, esteps, homing sequence (Y before X)
 // and min X-position (+8mm)
@@ -696,10 +696,10 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 #define MAX_REDUNDANT_TEMP_SENSOR_DIFF 10
 
 #define TEMP_RESIDENCY_TIME     10  // (seconds) Time to wait for hotend to "settle" in M109
-#define TEMP_WINDOW              4  // (°C) Temperature proximity for the "temperature reached" timer
+#define TEMP_WINDOW              3  // (°C) Temperature proximity for the "temperature reached" timer
 #define TEMP_HYSTERESIS          3  // (°C) Temperature proximity considered "close enough" to the target
 
-#define TEMP_BED_RESIDENCY_TIME 10  // (seconds) Time to wait for bed to "settle" in M190
+#define TEMP_BED_RESIDENCY_TIME  5  // (seconds) Time to wait for bed to "settle" in M190
 #define TEMP_BED_WINDOW          3  // (°C) Temperature proximity for the "temperature reached" timer
 #define TEMP_BED_HYSTERESIS      3  // (°C) Temperature proximity considered "close enough" to the target
 
@@ -1127,7 +1127,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 //#define ENDSTOP_NOISE_THRESHOLD 2
 
 // Check for stuck or disconnected endstops during homing moves.
-//#define DETECT_BROKEN_ENDSTOP
+#define DETECT_BROKEN_ENDSTOP
 
 //=============================================================================
 //============================== Movement Settings ============================
@@ -1222,7 +1222,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 */
 #if ANY (SAPPHIRE_PRO, SAPPHIRE_PLUS)
     //Sapphire Pro
-    #define DEFAULT_MAX_FEEDRATE          { 300, 300, 10, 50 }
+    #define DEFAULT_MAX_FEEDRATE          { 300, 300, 40, 50 }
   #elif ENABLED(BLUER)
     //Bluer
     #define DEFAULT_MAX_FEEDRATE          { 250, 250, 10, 50 }
@@ -1242,7 +1242,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
+#define DEFAULT_MAX_ACCELERATION      { 5000, 5000, 100, 10000 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1257,7 +1257,13 @@ non-belt-synced drives. In this case, a additional configuration has to be done
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#if ANY (SAPPHIRE_PRO, SAPPHIRE_PLUS)
+
+#if ((ANY (SAPPHIRE_PRO, SAPPHIRE_PLUS)) && (ENABLED (E3D_HEMERA)))
+  //Sapphire Pro & Plus with E3D Hemera (Tuned)
+  #define DEFAULT_ACCELERATION          1250    // X, Y, Z and E acceleration for printing moves
+  #define DEFAULT_RETRACT_ACCELERATION  2000    // E acceleration for retracts
+  #define DEFAULT_TRAVEL_ACCELERATION   1500    // X, Y, Z acceleration for travel (non printing) moves
+#elif ANY (SAPPHIRE_PRO, SAPPHIRE_PLUS)
   //Sapphire Pro & Plus
   #define DEFAULT_ACCELERATION          1000    // X, Y, Z and E acceleration for printing moves
   #define DEFAULT_RETRACT_ACCELERATION  2000    // E acceleration for retracts
@@ -1289,10 +1295,16 @@ non-belt-synced drives. In this case, a additional configuration has to be done
   //#define CLASSIC_JERK
 #endif
 
-#if ENABLED(CLASSIC_JERK)
+#if ((ENABLED(CLASSIC_JERK)) && (ENABLED (E3D_HEMERA)))
+  #define DEFAULT_XJERK 8.0
+  #define DEFAULT_YJERK 8.0
+  #define DEFAULT_ZJERK 0.3
+
+#elif ENABLED(CLASSIC_JERK)
   #define DEFAULT_XJERK 15.0
   #define DEFAULT_YJERK 15.0
   #define DEFAULT_ZJERK  0.3
+
 
   //#define TRAVEL_EXTRA_XYJERK 0.0     // Additional jerk allowance for all travel moves
 
@@ -1302,7 +1314,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
   #endif
 #endif
 
-#define DEFAULT_EJERK    5.0  // May be used by Linear Advance
+#define DEFAULT_EJERK    5  // May be used by Linear Advance
 
 /**
  * Junction Deviation Factor
@@ -1887,15 +1899,15 @@ non-belt-synced drives. In this case, a additional configuration has to be done
       #define Y_MAX_POS Y_BED_SIZE_CUSTOM
       #define Z_MAX_POS Z_BED_SIZE_CUSTOM
     #elif ENABLED(E3D_HEMERA)
-      #define X_BED_SIZE 282
-      #define Y_BED_SIZE 300
+      #define X_BED_SIZE 288
+      #define Y_BED_SIZE 296
 
       // Travel limits (mm) after homing, corresponding to endstop positions.
       #define X_MIN_POS -8 //mm to avoid colision with Endtopps / Z-Drive
       #define Y_MIN_POS 0
       #define Z_MIN_POS 0
-      #define X_MAX_POS 292
-      #define Y_MAX_POS 300
+      #define X_MAX_POS 288
+      #define Y_MAX_POS 296
       #define Z_MAX_POS 327 //mm | Hemera is positioned a little bit lower.
 
     #else
@@ -2253,7 +2265,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 #define LEVEL_BED_CORNERS
 
 #if ENABLED(LEVEL_BED_CORNERS)
-  #define LEVEL_CORNERS_INSET_LFRB { 30, 30, 30, 30 } // (mm) Left, Front, Right, Back insets
+  #define LEVEL_CORNERS_INSET_LFRB { 15, 15, 15, 15 } // (mm) Left, Front, Right, Back insets
   #define LEVEL_CORNERS_HEIGHT      0.0   // (mm) Z height of nozzle at leveling points
   #define LEVEL_CORNERS_Z_HOP       4.0   // (mm) Z height of nozzle between leveling points
   #define LEVEL_CENTER_TOO              // Move to the center after the last corner
@@ -2406,13 +2418,13 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 
 // Preheat Constants
 #define PREHEAT_1_LABEL       "PLA"
-#define PREHEAT_1_TEMP_HOTEND 200
-#define PREHEAT_1_TEMP_BED     50
+#define PREHEAT_1_TEMP_HOTEND 210
+#define PREHEAT_1_TEMP_BED     60
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
 #define PREHEAT_2_LABEL       "PETG"
 #define PREHEAT_2_TEMP_HOTEND 247
-#define PREHEAT_2_TEMP_BED    90
+#define PREHEAT_2_TEMP_BED    85
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 
 /**
@@ -3294,29 +3306,29 @@ non-belt-synced drives. In this case, a additional configuration has to be done
   //#define RGB_LED_W_PIN -1
 #endif
 
-// Support for Adafruit NeoPixel LED driver
-//#define NEOPIXEL_LED
-#if ENABLED(NEOPIXEL_LED)
-  #define NEOPIXEL_TYPE   NEO_GRBW // NEO_GRBW / NEO_GRB - four/three channel driver type (defined in Adafruit_NeoPixel.h)
-  #define NEOPIXEL_PIN     4       // LED driving pin
-  //#define NEOPIXEL2_TYPE NEOPIXEL_TYPE
-  //#define NEOPIXEL2_PIN    5
-  #define NEOPIXEL_PIXELS 30       // Number of LEDs in the strip. (Longest strip when NEOPIXEL2_SEPARATE is disabled.)
-  #define NEOPIXEL_IS_SEQUENTIAL   // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
-  #define NEOPIXEL_BRIGHTNESS 127  // Initial brightness (0-255)
-  //#define NEOPIXEL_STARTUP_TEST  // Cycle through colors at startup
+// Support for Adafruit Neopixel LED driver
+#if ENABLED(NEOPIXEL)
+  #define NEOPIXEL_LED
+#else
+  //#define NEOPIXEL_LED
+#endif
 
-  // Support for second Adafruit NeoPixel LED driver controlled with M150 S1 ...
-  //#define NEOPIXEL2_SEPARATE
-  #if ENABLED(NEOPIXEL2_SEPARATE)
-    #define NEOPIXEL2_PIXELS      15  // Number of LEDs in the second strip
-    #define NEOPIXEL2_BRIGHTNESS 127  // Initial brightness (0-255)
-    #define NEOPIXEL2_STARTUP_TEST    // Cycle through colors at startup
+#if ENABLED(NEOPIXEL_LED)
+  #define NEOPIXEL_TYPE   TYPE // NEO_GRBW / NEO_GRB - four/three channel driver type (defined in Adafruit_NeoPixel.h)
+  #define NEOPIXEL_PIN    NEO_PIXEL_1       // LED driving pin
+  //#define NEOPIXEL2_TYPE TYPE
+  //#define NEOPIXEL2_PIN    NEO_PIXEL_2
+  #define NEOPIXEL_PIXELS PIXELS       // Number of LEDs in the strip, larger of 2 strips if 2 neopixel strips are used
+  //#define NEOPIXEL_IS_SEQUENTIAL   // Sequential display for temperature change - LED by LED. Disable to change all LEDs at once.
+  #define NEOPIXEL_BRIGHTNESS BRIGHTNESS  // Initial brightness (0-255)
+
+  #if ENABLED(STARTUP_TEST)
+    #define NEOPIXEL_STARTUP_TEST  // Cycle through colors at startup
   #else
-    //#define NEOPIXEL2_INSERIES      // Default behavior is NeoPixel 2 in parallel
+    //#define NEOPIXEL_STARTUP_TEST  // Cycle through colors at startup
   #endif
 
-  // Use a single NeoPixel LED for static (background) lighting
+  // Use a single Neopixel LED for static (background) lighting
   //#define NEOPIXEL_BKGD_LED_INDEX  0               // Index of the LED to use
   //#define NEOPIXEL_BKGD_COLOR { 255, 255, 255, 0 } // R, G, B, W
 #endif
