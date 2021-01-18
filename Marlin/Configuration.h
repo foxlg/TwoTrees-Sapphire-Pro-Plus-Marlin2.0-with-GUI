@@ -68,7 +68,7 @@ the Z-Axis drives and endstopps have been changed to dual Z-Endstopps and
 non-belt-synced drives. In this case, a additional configuration has to be done
 !!!Configuration_adv.h (Uncomment Line 39)!!!
 ****************************************************************************/
-#if ENABLED(SAPPHIRE_PLUS_DUAL_Z)
+#if ENABLED (SAPPHIRE_PLUS_DUAL_Z)
   #define SAPPHIRE_PLUS //All Non-Exlusive-Presets are used for DUAL-Z revisions
 #endif
 
@@ -357,7 +357,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
  * Currently Ethernet (-2) is only supported on Teensy 4.1 boards.
  * :[-2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#define SERIAL_PORT_2 1
+//#define SERIAL_PORT_2 1
 
 /**
  * This setting determines the communication speed of the printer.
@@ -1529,7 +1529,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 #define XY_PROBE_SPEED 10500
 
 // Feedrate (mm/m) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
+#define Z_PROBE_SPEED_FAST (4*60)
 
 // Feedrate (mm/m) for the "accurate" probe of each point
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 4)
@@ -2296,9 +2296,8 @@ non-belt-synced drives. In this case, a additional configuration has to be done
   #define Z_SAFE_HOMING_Y_POINT Y_CENTER  // Y point for Z homing
 #endif
 
-// Homing speeds (mm/min)
-#define HOMING_FEEDRATE_XY (50*60)
-#define HOMING_FEEDRATE_Z  (40*60)
+// Homing speeds (mm/min) (X,Y,Z)
+#define HOMING_FEEDRATE_MM_M { (50*60),(50*60),(40*60)}
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
@@ -3071,7 +3070,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 // 480x320, 3.5", SPI Display From MKS
 // Normally used in MKS Robin Nano V2
 //
-#define MKS_TS35_V2_0
+//#define MKS_TS35_V2_0
 
 //
 // 320x240, 2.4", FSMC Display From MKS
@@ -3095,7 +3094,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 // 480x320, 3.5", FSMC Display From MKS
 // Normally used in MKS Robin Nano V1.2
 //
-//#define MKS_ROBIN_TFT35
+#define MKS_ROBIN_TFT35
 
 //
 // 480x272, 4.3", FSMC Display From MKS
