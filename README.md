@@ -1,18 +1,53 @@
 # About this Fork
-This fork is a Marlin version, based on the original branch of MKS (board manufacturer), and was created to bring Marlin 2.0 with the easy configurability of Marlin implementation from l3tspeak to TwoTrees printers like the Sapphire Plus an Pro.
+This fork is a Marlin version, based on the original branch of MKS (board manufacturer), and was created to bring Marlin 2.0 with the easy configurability of Marlin implementation from l3tspeak to TwoTrees printers like the Sapphire Plus an Pro. This brings back the original GUI that originally came with your printer but with full configurability.
 
 ## Preconfigured printers:
 - Sapphire Pro
-- Sapphire Plus
+- Sapphire Plus (Dual-Z and belt-synced versions)
 - Bluer
 - Sapphire Pro/Plus with E3D Hemera
 
-As I own a Sapphire Plus with Hemera, this will be the only tested version.
+As I own a Sapphire Plus with a Hemera, this will be the only tested version by myself. So be carefull with those other versions at the until you trust them. At least the software Z-Endstop of the Pro has to be adjusted. Please feel free to bring in your own modifications and do a pull-request or verify modifications I'm not able to verify.
 
-# Some other Recommendation
-I'm using the Cura for slicing with the Voron 300 as base-profile. Some configurations had been made.
+![](https://github.com/makerbase-mks/Mks-Robin-Nano-Marlin2.0-Firmware/blob/master/Images/MKS_Robin_Nano_printing.png)
 
-# Mks-Robin-Nano-Marlin2.0-Firmware (Description of original project...)
+## Some hint before the installation
+I am not responsible for bricked devices, dead SD cards, thermonuclear war, or having some unsupervised 3D-Printer (which probably does not match your countries electrical safety standarts anyway) burning down your house. I would recommend you to have at least your configured factory firmware ready, in case the firmware is maybe not working, as intended. 
+
+YOU are choosing to make these modifications, and if you point the finger at me for messing up your device, I will laugh at you.
+
+Do everything at your own risk! But it's probably worth it anyway huh?
+
+## Installation on your Printer
+If you do not have a clou, what VS-Code or PlatformIO is: This is the way for you!
+
+You are going to find some precompiled firmware binaries under the section ["releases"](
+https://github.com/RolfZuckowskiUltras/TwoTrees-Sapphire-Pro-Plus-Marlin2.0-with-GUI/releases) on this page. You will find a file named "Robin_nano35.bin" in the .zip, that is according to your machine. Just put that one onto a SD-Card. Put the card into your (switched off) machine and switch it on after that. Your machine will update itself (progress-bar is shown) and start the firmware after that. The Screen has to be calibrated at the first startup.
+
+## Compile your own firmware
+You can't find your particular firmware, just want to do some modifications or have I been to lazy to rebuilt the binaries (again)? Then go for it.
+It's Marlin. You probably know how to work with it. To make life easier, the Firmware includes some precompiler definitions, inspired by user l3tspeaks ["TwoTrees Marlin 2.0 Firmware"](https://github.com/le3tspeak/Marlin-2.0.X-MKS-Robin-Nano).
+
+There are some defintions in the Marlin `Configuration.h` and one further defintion in `Configuration_adv.h`. Definitions are
+- `//#define SAPPHIRE_PRO`
+- `//#define SAPPHIRE_PLUS`
+- `//#define SAPPHIRE_PLUS_DUAL_Z `
+- `//#define E3D_HEMERA`
+- `//#define BL_TOUCH` 
+
+Uncomment your personal machine and options, if needed. Only the function of the Sapphire Plus Dual Z with E3D Hemera is verified yet. The factory will probably work fine. The Hemera will work probably fine with the Sapphire Plus models. At that point you are going to find other features, like the neo-pixel implementation anyway...
+
+As now (January 2021) All TwoTrees Printers seem to be delivered with the Robin Nano V1. It might be, that they switch to V2 or V3 in the meantime. Just a hint for troubleshooting...
+
+Please also keep the direct information of the MKS repository in mind.
+
+## You prefer the Stock Marlin over the lvgl GUI?
+No Problem. [Take a look at this Repository](https://github.com/RolfZuckowskiUltras/Marlin-2.0.X-MKS-Robin-Nano). Same stuff, but with the stock Marlin UI. It's proven to be stable.
+
+-------------------
+
+
+# Mks-Robin-Nano-Marlin2.0-Firmware (Description of upstream repository...)
 ## Features
 The firmware of Mks Robin Nano, based on [Marlin2.0.x](https://github.com/MarlinFirmware/Marlin), added the [LittlevGL](https://github.com/littlevgl/lvgl), supporting colourful GUI and touch screen. It is developed on PlatformIO, we hope more and more developers will participate the development of this repository.
 
