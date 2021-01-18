@@ -24,6 +24,10 @@ If you do not have a clou, what VS-Code or PlatformIO is: This is the way for yo
 You are going to find some precompiled firmware binaries under the section ["releases"](
 https://github.com/RolfZuckowskiUltras/TwoTrees-Sapphire-Pro-Plus-Marlin2.0-with-GUI/releases) on this page. You will find a file named "Robin_nano35.bin" in the .zip, that is according to your machine. Just put that one onto a SD-Card. Put the card into your (switched off) machine and switch it on after that. Your machine will update itself (progress-bar is shown) and start the firmware after that. The Screen has to be calibrated at the first startup.
 
+## About the mounting of the Hemera
+
+The preconfigurations for the E3D Hemera [are optimized for this mount (Seems to work best)](https://www.thingiverse.com/thing:4435761). I remixed the mount for the useage of an EBM Pabst RLF35, beacause we can [(See Thingiverse)](https://www.thingiverse.com/thing:4578322). You have to also do some spacers between the platform and Z-endstops (See Photos of the RLF35 Mount). The cables of the Hemera are not long enougth. Just take the factory ones for that last part. Nobody wants to go back from a hemera anyway, right?
+
 ## Compile your own firmware
 You can't find your particular firmware, just want to do some modifications or have I been to lazy to rebuilt the binaries (again)? Then go for it.
 It's Marlin. You probably know how to work with it. To make life easier, the Firmware includes some precompiler definitions, inspired by user l3tspeaks ["TwoTrees Marlin 2.0 Firmware"](https://github.com/le3tspeak/Marlin-2.0.X-MKS-Robin-Nano).
