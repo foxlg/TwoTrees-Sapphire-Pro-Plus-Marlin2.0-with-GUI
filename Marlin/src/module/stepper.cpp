@@ -91,7 +91,6 @@ Stepper stepper; // Singleton
 #include "planner.h"
 #include "motion.h"
 
-#include "temperature.h"
 #include "../lcd/marlinui.h"
 #include "../gcode/queue.h"
 #include "../sd/cardreader.h"
@@ -381,7 +380,10 @@ xyze_int8_t Stepper::count_direction{0};
 #endif
 
 #if NUM_Z_STEPPER_DRIVERS == 4
-  #define Z_APPLY_DIR(v,Q) do{ Z_DIR_WRITE(v); Z2_DIR_WRITE(v); Z3_DIR_WRITE(v); Z4_DIR_WRITE(v); }while(0)
+  #define Z_APPLY_DIR(v,Q) do{ \
+    Z_DIR_WRITE(v); Z2_DIR_WRITE((v) ^ ENABLED(INVERT_Z2_VS_Z_DIR)); \
+    Z3_DIR_WRITE((v) ^ ENABLED(INVERT_Z3_VS_Z_DIR)); Z4_DIR_WRITE((v) ^ ENABLED(INVERT_Z4_VS_Z_DIR)); \
+  }while(0)
   #if ENABLED(Z_MULTI_ENDSTOPS)
     #define Z_APPLY_STEP(v,Q) QUAD_ENDSTOP_APPLY_STEP(Z,v)
   #elif ENABLED(Z_STEPPER_AUTO_ALIGN)
@@ -390,7 +392,9 @@ xyze_int8_t Stepper::count_direction{0};
     #define Z_APPLY_STEP(v,Q) do{ Z_STEP_WRITE(v); Z2_STEP_WRITE(v); Z3_STEP_WRITE(v); Z4_STEP_WRITE(v); }while(0)
   #endif
 #elif NUM_Z_STEPPER_DRIVERS == 3
-  #define Z_APPLY_DIR(v,Q) do{ Z_DIR_WRITE(v); Z2_DIR_WRITE(v); Z3_DIR_WRITE(v); }while(0)
+  #define Z_APPLY_DIR(v,Q) do{ \
+    Z_DIR_WRITE(v); Z2_DIR_WRITE((v) ^ ENABLED(INVERT_Z2_VS_Z_DIR)); Z3_DIR_WRITE((v) ^ ENABLED(INVERT_Z3_VS_Z_DIR)); \
+  }while(0)
   #if ENABLED(Z_MULTI_ENDSTOPS)
     #define Z_APPLY_STEP(v,Q) TRIPLE_ENDSTOP_APPLY_STEP(Z,v)
   #elif ENABLED(Z_STEPPER_AUTO_ALIGN)
@@ -399,7 +403,7 @@ xyze_int8_t Stepper::count_direction{0};
     #define Z_APPLY_STEP(v,Q) do{ Z_STEP_WRITE(v); Z2_STEP_WRITE(v); Z3_STEP_WRITE(v); }while(0)
   #endif
 #elif NUM_Z_STEPPER_DRIVERS == 2
-  #define Z_APPLY_DIR(v,Q) do{ Z_DIR_WRITE(v); Z2_DIR_WRITE(v); }while(0)
+  #define Z_APPLY_DIR(v,Q) do{ Z_DIR_WRITE(v); Z2_DIR_WRITE((v) ^ ENABLED(INVERT_Z2_VS_Z_DIR)); }while(0)
   #if ENABLED(Z_MULTI_ENDSTOPS)
     #define Z_APPLY_STEP(v,Q) DUAL_ENDSTOP_APPLY_STEP(Z,v)
   #elif ENABLED(Z_STEPPER_AUTO_ALIGN)
@@ -1351,6 +1355,10 @@ HAL_STEP_TIMER_ISR() {
   #define STEP_MULTIPLY(A,B) MultiU24X32toH16(A, B)
 #endif
 
+#if ENABLED(MKS_TEST)
+  extern uint8_t mks_test_flag;
+#endif
+
 void Stepper::isr() {
 
   static uint32_t nextMainISR = 0;  // Interval until the next main Stepper Pulse phase (0 = Now)
@@ -1377,6 +1385,18 @@ void Stepper::isr() {
   do {
     // Enable ISRs to reduce USART processing latency
     ENABLE_ISRS();
+    #if ENABLED(MKS_TEST)
+      if(mks_test_flag == 0x1e) {
+        WRITE(X_STEP_PIN, HIGH);
+        WRITE(Y_STEP_PIN, HIGH);
+        WRITE(Z_STEP_PIN, HIGH);
+        WRITE(E0_STEP_PIN, HIGH);
+        #if !MB(MKS_ROBIN_E3P)
+          WRITE(E1_STEP_PIN, HIGH);
+        #endif
+        //WRITE(E2_STEP_PIN, HIGH);
+      }
+    #endif
 
     if (!nextMainISR) pulse_phase_isr();                            // 0 = Do coordinated axes Stepper pulses
 
@@ -1464,6 +1484,18 @@ void Stepper::isr() {
      * is less than the current count due to something preempting between the
      * read and the write of the new period value).
      */
+    #if ENABLED(MKS_TEST)
+      if(mks_test_flag == 0x1e) {
+	     WRITE(X_STEP_PIN, LOW);
+	     WRITE(Y_STEP_PIN, LOW);
+	     WRITE(Z_STEP_PIN, LOW);
+	     WRITE(E0_STEP_PIN, LOW);
+       #if !MB(MKS_ROBIN_E3P)
+	      WRITE(E1_STEP_PIN, LOW);
+       #endif
+	     //WRITE(E2_STEP_PIN, LOW);
+      }
+    #endif
     DISABLE_ISRS();
 
     /**
