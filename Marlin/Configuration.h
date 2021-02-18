@@ -153,15 +153,15 @@ non-belt-synced drives. In this case, a additional configuration has to be done
   #define DRIVER_X TMC2209_STANDALONE
   #define DRIVER_Y TMC2209_STANDALONE
   #define DRIVER_Z TMC2209_STANDALONE
-  #define DRIVER_E0 TMC2209_STANDALONE
+  #define DRIVER_E0 TMC2208_STANDALONE
   //#define DRIVER_E1 TMC2209_STANDALONE
-  //#define DRIVER_Z2 TMC2209_STANDALONE
+  #define DRIVER_Z2 TMC2208_STANDALONE
 
   //#define INVERT_X
   //#define INVERT_Y
   #define INVERT_Z
-  #define INVERT_E0
-  //#define INVERT_Z2
+  //#define INVERT_E0
+  #define INVERT_Z2
   //#define INVERT_E1
 #endif
 
