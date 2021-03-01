@@ -61,7 +61,7 @@
 // Core XY
 //#define SAPPHIRE_PRO
 //#define SAPPHIRE_PLUS
-#define SAPPHIRE_PLUS_DUAL_Z //==> Read text since additional config is mandatory
+//#define SAPPHIRE_PLUS_DUAL_Z //==> Read text since additional config is mandatory
 /****************************************************************************
 Attention: On newer Sapphire Plus models (Probably manufactured after April 2020)
 the Z-Axis drives and endstopps have been changed to dual Z-Endstopps and
@@ -78,7 +78,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 //===========================================================================
 //============================= Hotend-Preset================================
 //===========================================================================
-#define E3D_HEMERA //Only for Sapphire PLUS yet.
+//#define E3D_HEMERA //Only for Sapphire PLUS yet.
 
 //Modifies Thermistor Types, esteps, homing sequence (Y before X)
 // and min X-position (+8mm)
@@ -97,37 +97,21 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 //#define FILAMENT_RUNOUT_SENSOR
 
 // Probe Settings
-#define BL_TOUCH                 // Enable BLTouch Settings
-#if ENABLED(BL_TOUCH) && NONE(E3D_HEMERA)
+//#define BL_TOUCH                 // Enable BLTouch Settings
+#if ENABLED(BL_TOUCH)
   //#define LOW_RES                  // 3x3 Grid
   //#define HI_RES                   // 5x5 Grid
   //#define MAX_RES                  // 7x7 Grid
   //#define BL_TOUCH_HIGH_SPEED      // Only for BLTouch 3.0 and 3.1 Probe Pin does not pull in when moving in XY. Use at your own risk!
   //#define Z_CLEARANCE_BL        5  // Z Clearance between probe points
   //#define MULTIPLE_PROBING_BL   2  // A total of 2 does fast/slow probes with a weighted average.  A total of 3 or more adds more slow probes, taking the average.
-
-  // Specify a Probe Offsetposition { X, Y, Z }
-  #define OFFSET_X 0              // - Left   |   Right +
-  #define OFFSET_Y 0              // - Front  |   Back +
-  #define OFFSET_Z 0              // - Nozzle ist Higher as the Probe 0 Point |  + Really? you did somthing wrong.
-
-#elif ENABLED(BL_TOUCH) && ENABLED(E3D_HEMERA) && ENABLED(SAPPHIRE_PLUS_DUAL_Z)
-  //#define LOW_RES                  // 3x3 Grid
-  #define HI_RES                   // 5x5 Grid
-  //#define MAX_RES                  // 7x7 Grid
-  //#define BL_TOUCH_HIGH_SPEED      // Only for BLTouch 3.0 and 3.1 Probe Pin does not pull in when moving in XY. Use at your own risk!
-  #define Z_CLEARANCE_BL        15  // Z Clearance between probe points
-  #define MULTIPLE_PROBING_BL   3  // A total of 2 does fast/slow probes with a weighted average.  A total of 3 or more adds more slow probes, taking the average.
-
-  // Specify a Probe Offsetposition { X, Y, Z }
-  //For Mount: https://www.thingiverse.com/thing:4578322 and https://www.thingiverse.com/thing:4435761
-  #define OFFSET_X -37.7              // - Left   |   Right +
-  #define OFFSET_Y +3.0              // - Front  |   Back +
-  #define OFFSET_Z -2.0              // - Nozzle ist Higher as the Probe 0 Point |  + Really? you did somthing wrong.
-
-#elif ENABLED(BL_TOUCH)
-  #error Parameters Not defined yet. Please do that by yourself...
 #endif
+
+
+// Specify a Probe Offsetposition { X, Y, Z }
+#define OFFSET_X 0              // - Left   |   Right +
+#define OFFSET_Y 0              // - Front  |   Back +
+#define OFFSET_Z 0              // - Nozzle ist Higher as the Probe 0 Point |  + Really? you did somthing wrong.
 
 
 // Motion Control Settings
@@ -164,12 +148,12 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 //          TMC2208, TMC2208_STANDALONE, TMC2209, TMC2209_STANDALONE,
 //          TMC26X,  TMC26X_STANDALONE,  TMC2660, TMC2660_STANDALONE,
 //          TMC5130, TMC5130_STANDALONE, TMC5160, TMC5160_STANDALONE
-#define CUSTOM_STEPPER_DRIVERS
+//#define CUSTOM_STEPPER_DRIVERS
 #if ENABLED(CUSTOM_STEPPER_DRIVERS)
   #define DRIVER_X TMC2209_STANDALONE
   #define DRIVER_Y TMC2209_STANDALONE
-  #define DRIVER_Z TMC2208_STANDALONE
-  #define DRIVER_E0 TMC2209_STANDALONE
+  #define DRIVER_Z TMC2209_STANDALONE
+  #define DRIVER_E0 TMC2208_STANDALONE
   //#define DRIVER_E1 TMC2209_STANDALONE
   #define DRIVER_Z2 TMC2208_STANDALONE
 
@@ -333,7 +317,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(RolfZuckowskiUltras,  MKS Robin Nano V1.X)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(RolfZuckowskiUltras, MKS Robin Nano)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -395,7 +379,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
-//#define CUSTOM_MACHINE_NAME "TwoTrees Sapphire Plus Dual-Z BL-Touch"
+//#define CUSTOM_MACHINE_NAME "3D Printer"
 
 // Printer's unique ID, used by some programs to differentiate between machines.
 // Choose your own or use a service like https://www.uuidgenerator.net/version4
@@ -1127,7 +1111,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
-#define ENDSTOP_INTERRUPTS_FEATURE
+//#define ENDSTOP_INTERRUPTS_FEATURE
 
 /**
  * Endstop Noise Threshold
@@ -1239,7 +1223,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 */
 #if ANY (SAPPHIRE_PRO, SAPPHIRE_PLUS)
     //Sapphire Pro
-    #define DEFAULT_MAX_FEEDRATE          { 300, 300, 150, 100 }
+    #define DEFAULT_MAX_FEEDRATE          { 300, 300, 40, 50 }
   #elif ENABLED(BLUER)
     //Bluer
     #define DEFAULT_MAX_FEEDRATE          { 250, 250, 10, 50 }
@@ -1400,9 +1384,6 @@ non-belt-synced drives. In this case, a additional configuration has to be done
  *      - normally-open switches to 5V and D32.
  */
 //#define Z_MIN_PROBE_PIN PC4 // Pin 32 is the RAMPS default
-#if ENABLED(BL_TOUCH) && ENABLED(SAPPHIRE_PLUS_DUAL_Z)
-  #define Z_MIN_PROBE_PIN PE6 //Use Input PE6 for BL-Touch Z-Height instad of Z-Endstop
-#endif
 
 /**
  * Probe Type
@@ -1557,8 +1538,8 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
 #define PROBING_MARGIN 10
 
-// X and Y axis travel speed (mm/min) between probes
-#define XY_PROBE_SPEED (150*60)
+// X and Y axis travel speed (mm/m) between probes
+#define XY_PROBE_SPEED 10500
 
 // Feedrate (mm/m) for the first approach when double-probing (MULTIPLE_PROBING == 2)
 #define Z_PROBE_SPEED_FAST (4*60)
@@ -1858,7 +1839,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 #define Z_HOMING_HEIGHT  4      // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
                                   // Be sure to have this much clearance over your Z_MAX_POS to prevent grinding.
 
-#define Z_AFTER_HOMING  50      // (mm) Height to move to after homing Z
+#define Z_AFTER_HOMING  10      // (mm) Height to move to after homing Z
 
 #if ENABLED(SAPPHIRE_PRO)
     //Sapphire Pro
@@ -2224,13 +2205,13 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 
     // Beyond the probed grid, continue the implied tilt?
     // Default is to maintain the height of the nearest edge.
-    #define EXTRAPOLATE_BEYOND_GRID
+    //#define EXTRAPOLATE_BEYOND_GRID
 
     //
     // Experimental Subdivision of the grid by Catmull-Rom method.
     // Synthesizes intermediate points to produce a more detailed mesh.
     //
-    #define ABL_BILINEAR_SUBDIVISION
+    //#define ABL_BILINEAR_SUBDIVISION
     #if ENABLED(ABL_BILINEAR_SUBDIVISION)
       // Number of subdivisions between probe points
       #define BILINEAR_SUBDIVISIONS 3
@@ -2262,7 +2243,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
   //=================================== Mesh ==================================
   //===========================================================================
 
-  #define MESH_INSET 35          // Set Mesh bounds as an inset region of the bed
+  #define MESH_INSET 10          // Set Mesh bounds as an inset region of the bed
   #define GRID_MAX_POINTS_X 3    // Don't use more than 7 points per axis, implementation limited.
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
@@ -2286,7 +2267,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 #define LEVEL_BED_CORNERS
 
 #if ENABLED(LEVEL_BED_CORNERS)
-  #define LEVEL_CORNERS_INSET_LFRB { 35, 35, 35, 35 } // (mm) Left, Front, Right, Back insets
+  #define LEVEL_CORNERS_INSET_LFRB { 15, 15, 15, 15 } // (mm) Left, Front, Right, Back insets
   #define LEVEL_CORNERS_HEIGHT      0.0   // (mm) Z height of nozzle at leveling points
   #define LEVEL_CORNERS_Z_HOP       4.0   // (mm) Z height of nozzle between leveling points
   //#define LEVEL_CENTER_TOO              // Move to the center after the last corner
