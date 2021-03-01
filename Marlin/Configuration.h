@@ -116,7 +116,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
   #define HI_RES                   // 5x5 Grid
   //#define MAX_RES                  // 7x7 Grid
   //#define BL_TOUCH_HIGH_SPEED      // Only for BLTouch 3.0 and 3.1 Probe Pin does not pull in when moving in XY. Use at your own risk!
-  #define Z_CLEARANCE_BL        15  // Z Clearance between probe points
+  #define Z_CLEARANCE_BL        5  // Z Clearance between probe points
   #define MULTIPLE_PROBING_BL   3  // A total of 2 does fast/slow probes with a weighted average.  A total of 3 or more adds more slow probes, taking the average.
 
   // Specify a Probe Offsetposition { X, Y, Z }
@@ -1015,7 +1015,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
     #define Z_MIN_PROBE_ENDSTOP_INVERTING true // Set to true to invert the logic of the probe.
   #else
     //Sapphire Pro,Plus & Bluer & Mechanical Endstops
-    #define X_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+    #define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
     #define Y_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
     #define X_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
     #define Y_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
@@ -1561,7 +1561,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 #define XY_PROBE_SPEED (150*60)
 
 // Feedrate (mm/m) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_SPEED_FAST (4*60)
+#define Z_PROBE_SPEED_FAST (50*60)
 
 // Feedrate (mm/m) for the "accurate" probe of each point
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 4)
@@ -1919,14 +1919,14 @@ non-belt-synced drives. In this case, a additional configuration has to be done
       #define Y_MAX_POS Y_BED_SIZE_CUSTOM
       #define Z_MAX_POS Z_BED_SIZE_CUSTOM
     #elif ENABLED(E3D_HEMERA)
-      #define X_BED_SIZE 288
+      #define X_BED_SIZE 284
       #define Y_BED_SIZE 296
 
       // Travel limits (mm) after homing, corresponding to endstop positions.
       #define X_MIN_POS -8 //mm to avoid colision with Endtopps / Z-Drive
       #define Y_MIN_POS 0
       #define Z_MIN_POS 0
-      #define X_MAX_POS 288
+      #define X_MAX_POS 284
       #define Y_MAX_POS 296
       #define Z_MAX_POS 327 //mm | Hemera is positioned a little bit lower.
 
@@ -3182,13 +3182,13 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 // 320x240, 3.2", FSMC Display From MKS
 // Normally used in MKS Robin Nano V1.2
 //
-//#define MKS_ROBIN_TFT32
+#define MKS_ROBIN_TFT32
 
 //
 // 480x320, 3.5", FSMC Display From MKS
 // Normally used in MKS Robin Nano V1.2
 //
-#define MKS_ROBIN_TFT35
+//#define MKS_ROBIN_TFT35
 
 //
 // 480x272, 4.3", FSMC Display From MKS
@@ -3235,13 +3235,13 @@ non-belt-synced drives. In this case, a additional configuration has to be done
   #define TFT_DRIVER AUTO
 
   // Interface. Enable one of the following options:
-  //#define TFT_INTERFACE_FSMC
+  #define TFT_INTERFACE_FSMC
   //#define TFT_INTERFACE_SPI
 
   // TFT Resolution. Enable one of the following options:
   //#define TFT_RES_320x240
   //#define TFT_RES_480x272
-  //#define TFT_RES_480x320
+  #define TFT_RES_480x320
 #endif
 
 /**
@@ -3254,9 +3254,9 @@ non-belt-synced drives. In this case, a additional configuration has to be done
  *   For LVGL_UI also copy the 'assets' folder from the build directory to the
  *   root of your SD card, together with the compiled firmware.
  */
-//#define TFT_CLASSIC_UI
+#define TFT_CLASSIC_UI
 //#define TFT_COLOR_UI
-#define TFT_LVGL_UI
+//#define TFT_LVGL_UI
 
 #if ENABLED(TFT_LVGL_UI)
   #define MKS_WIFI_MODULE  // MKS WiFi module
