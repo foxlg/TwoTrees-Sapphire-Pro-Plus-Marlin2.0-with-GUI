@@ -2343,7 +2343,7 @@ non-belt-synced drives. In this case, a additional configuration has to be done
 // - Move the Z probe (or nozzle) to a defined XY point before Z Homing.
 // - Prevent Z homing when the Z probe is outside bed area.
 //
-#if ENABLED (BL_TOUCH)
+#if ENABLED (BL_TOUCH) && NONE(SAPPHIRE_PLUS_DUAL_Z)
   #define Z_SAFE_HOMING
 #else
   //#define Z_SAFE_HOMING
@@ -3254,9 +3254,9 @@ non-belt-synced drives. In this case, a additional configuration has to be done
  *   For LVGL_UI also copy the 'assets' folder from the build directory to the
  *   root of your SD card, together with the compiled firmware.
  */
-//#define TFT_CLASSIC_UI
+#define TFT_CLASSIC_UI
 //#define TFT_COLOR_UI
-#define TFT_LVGL_UI
+//#define TFT_LVGL_UI
 
 #if ENABLED(TFT_LVGL_UI)
   #define MKS_WIFI_MODULE  // MKS WiFi module
