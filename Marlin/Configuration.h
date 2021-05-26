@@ -61,7 +61,7 @@
 // Core XY
 //#define SAPPHIRE_PRO
 //#define SAPPHIRE_PLUS
-//#define SAPPHIRE_PLUS_DUAL_Z //==> Read text since additional config is mandatory
+#define SAPPHIRE_PLUS_DUAL_Z //==> Read text since additional config is mandatory
 /****************************************************************************
 Attention: On newer Sapphire Plus models (Probably manufactured after April 2020)
 the Z-Axis drives and endstopps have been changed to dual Z-Endstopps and
@@ -160,11 +160,11 @@ non-belt-synced drives. In this case, a additional configuration has to be done
   //#define INVERT_X
   //#define INVERT_Y
   #define INVERT_Z
-  //#define INVERT_E0
+  #define INVERT_E0
   #define INVERT_Z2
-  //#define INVERT_E1
+  // #define INVERT_E1
 #endif
-
+#define INVERT_E0
 // Custom Axis Steps Per MM
 // If you have calibrated the extruder before, you can enter the steps here, also be specified individually for the other axes.
 //#define STEPS_X         0  // Normally no change needed...
